@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/index.ts",
+    "src/core/**/*",
+    "src/components/**/*",
+    "src/styles.css"
+  ],
+  "exclude": ["src/demo"]
+}
+

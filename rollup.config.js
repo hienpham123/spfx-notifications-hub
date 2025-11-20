@@ -2,6 +2,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
+import postcssImport from "postcss-import";
 import dts from "rollup-plugin-dts";
 import terser from "@rollup/plugin-terser";
 import { readFileSync } from 'fs';
@@ -31,7 +32,7 @@ export default [
         transformMixedEsModules: true,
       }),
       typescript({ 
-        tsconfig: "./tsconfig.json",
+        tsconfig: "./tsconfig.build.json",
         declaration: false,
         declarationMap: false,
         target: "ES2015",
@@ -40,6 +41,7 @@ export default [
       postcss({
         inject: false, // Don't inject CSS into JS
         extract: false, // We'll extract in a separate build step
+        plugins: [postcssImport()],
         minimize: true,
       }),
       terser(),
@@ -56,6 +58,7 @@ export default [
     plugins: [
       postcss({
         extract: 'index.css',
+        plugins: [postcssImport()],
         minimize: true,
       }),
     ],
