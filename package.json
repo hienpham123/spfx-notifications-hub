@@ -1,0 +1,78 @@
+{
+  "name": "spfx-notifications-hub",
+  "version": "beta-1.0.1",
+  "description": "A powerful library for toast, snackbar, confirm popup, and dialog notifications following Fluent UI standards for SPFx and React applications. Works seamlessly with both Functional Components and Class Components.",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CLASS_COMPONENT_USAGE.md",
+    "DIALOG_IN_CLASS_COMPONENT.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles": "./dist/index.css"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "vite",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "spfx",
+    "sharepoint",
+    "notifications",
+    "toast",
+    "snackbar",
+    "confirm",
+    "dialog",
+    "fluent-ui",
+    "react",
+    "typescript",
+    "class-component",
+    "functional-component",
+    "notification-hub",
+    "alert",
+    "popup"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/spfx-notifications-hub.git"
+  },
+  "homepage": "https://github.com/your-username/spfx-notifications-hub#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/spfx-notifications-hub/issues"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "dependencies": {
+    "@fluentui/react": "^8.118.0",
+    "@fluentui/react-icons": "^2.0.258"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-node-resolve": "^15.3.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "rollup": "^4.53.2",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "typescript": "^5.0.0",
+    "vite": "^4.4.0"
+  }
+}

@@ -1,0 +1,127 @@
+.hh-notifications-toast {
+  background: var(--colorNeutralBackground1, #ffffff);
+  border: 1px solid var(--colorNeutralStroke1, #e1dfdd);
+  border-left: 4px solid;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  padding-bottom: 19px; /* Extra space for progress bar */
+  min-width: 300px;
+  max-width: 400px;
+  animation: slideIn 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.hh-notifications-toast-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.hh-notifications-toast-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hh-notifications-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.hh-notifications-toast-title {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--colorNeutralForeground1, #323130);
+  margin-bottom: 4px;
+}
+
+.hh-notifications-toast-message {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--colorNeutralForeground2, #605e5c);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.hh-notifications-toast-action {
+  margin-top: 8px;
+}
+
+.hh-notifications-toast-action-button {
+  background: transparent;
+  border: none;
+  color: var(--colorBrandForeground1, #0078d4);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.notifications-toast-action-button:hover {
+  color: var(--colorBrandForeground2, #106ebe);
+}
+
+.hh-notifications-toast-dismiss {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  color: var(--colorNeutralForeground2, #605e5c);
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.notifications-toast-dismiss:hover {
+  background: var(--colorNeutralBackground2, #f3f2f1);
+  color: var(--colorNeutralForeground1, #323130);
+}
+
+.hh-notifications-toast-progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--colorNeutralStroke2, #edebe9);
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+}
+
+.hh-notifications-toast-progress {
+  height: 100%;
+  width: 100%;
+  background: #0078d4;
+  transform-origin: right;
+  animation: progressAnimation linear forwards;
+}
+
+.notifications-toast-progress.paused {
+  animation-play-state: paused;
+}
+
+@keyframes progressAnimation {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+

@@ -1,0 +1,5 @@
+/* Main styles entry point - imports all component styles */
+@import './notifications/components/ToastContainer.css';
+@import './notifications/components/Toast.css';
+@import './notifications/components/Dialog.css';
+

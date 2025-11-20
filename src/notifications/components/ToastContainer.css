@@ -1,0 +1,24 @@
+.hh-notifications-toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  pointer-events: none;
+}
+
+.hh-notifications-toast-container > * {
+  pointer-events: auto;
+}
+
+@media (max-width: 480px) {
+  .hh-notifications-toast-container {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+}
+

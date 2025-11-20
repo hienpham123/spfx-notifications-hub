@@ -1,0 +1,60 @@
+# Source files
+src/
+*.ts
+!*.d.ts
+*.tsx
+
+# Development files
+.vscode/
+.idea/
+*.log
+*.swp
+*.swo
+*~
+
+# Build tools
+rollup.config.js
+vite.config.ts
+tsconfig.json
+tsconfig.node.json
+
+# Demo files
+index.html
+demo/
+
+# Development dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__/
+coverage/
+
+# Documentation (keep only essential)
+QUICK_START.md
+DIALOG_PROPS.md
+
+# Other
+.env
+.env.local
+.env.*.local
+dist-demo/
