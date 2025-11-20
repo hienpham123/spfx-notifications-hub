@@ -8,10 +8,13 @@ export type {
   ConfirmOptions,
   DialogOptions,
   LoggingConfig,
+  ToastPlacementConfig,
+  ToastPlacementInput,
+  ToastViewportPosition,
 } from './core/types';
 
 import { getGlobalNotificationsContext } from './core/NotificationsProvider';
-import { ConfirmOptions } from './core/types';
+import { ConfirmOptions, DialogOptions } from './core/types';
 
 // Global API for use outside React components
 export const notify = {
@@ -76,8 +79,6 @@ export const confirm = (options: ConfirmOptions): Promise<boolean> => {
 };
 
 // Global Dialog API for use outside React components
-import { DialogOptions } from './core/types';
-
 export const dialog = {
   show: (options: DialogOptions): string => {
     const context = getGlobalNotificationsContext();

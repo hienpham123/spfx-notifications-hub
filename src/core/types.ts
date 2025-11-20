@@ -53,3 +53,36 @@ export interface LoggingConfig {
   onLog?: (notification: Notification) => void | Promise<void>;
 }
 
+export type ToastViewportPosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'top-center'
+  | 'bottom-center';
+
+export type ToastContainerRef = HTMLElement | null | (() => HTMLElement | null) | string;
+
+export interface ToastPlacementTarget {
+  position: ToastViewportPosition;
+  container?: ToastContainerRef;
+}
+
+export type ToastPlacementInput = ToastPlacementTarget | ToastViewportPosition;
+
+export interface ToastPlacementRule {
+  maxWidth: number;
+  target: ToastPlacementInput;
+}
+
+export interface ToastPlacementConfig {
+  default: ToastPlacementInput;
+  responsive?: ToastPlacementRule[];
+}
+
+export interface ResolvedToastPlacement extends ToastPlacementTarget {
+  position: ToastViewportPosition;
+  container?: ToastContainerRef;
+  isInline: boolean;
+}
+

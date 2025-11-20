@@ -1,12 +1,10 @@
 .hh-notifications-toast-container {
   position: fixed;
-  top: 16px;
-  right: 16px;
   z-index: 10000;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 400px;
+  width: min(400px, calc(100vw - 32px));
   pointer-events: none;
 }
 
@@ -14,11 +12,66 @@
   pointer-events: auto;
 }
 
+.hh-toast-pos-top-right {
+  top: 16px;
+  right: 16px;
+  align-items: flex-end;
+}
+
+.hh-toast-pos-top-left {
+  top: 16px;
+  left: 16px;
+  align-items: flex-start;
+}
+
+.hh-toast-pos-bottom-right {
+  bottom: 16px;
+  right: 16px;
+  align-items: flex-end;
+}
+
+.hh-toast-pos-bottom-left {
+  bottom: 16px;
+  left: 16px;
+  align-items: flex-start;
+}
+
+.hh-toast-pos-top-center {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.hh-toast-pos-bottom-center {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.hh-notifications-toast-container-inline {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  width: 100%;
+  max-width: 100%;
+  pointer-events: auto;
+  z-index: auto;
+}
+
+.hh-notifications-toast-container-inline.hh-toast-pos-top-center,
+.hh-notifications-toast-container-inline.hh-toast-pos-bottom-center {
+  left: auto;
+  transform: none;
+}
+
 @media (max-width: 480px) {
   .hh-notifications-toast-container {
-    left: 16px;
-    right: 16px;
-    max-width: none;
+    width: calc(100vw - 32px);
   }
 }
 

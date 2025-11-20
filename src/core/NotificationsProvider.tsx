@@ -1,5 +1,14 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
-import { Notification, ConfirmOptions, DialogOptions, LoggingConfig } from './types';
+import {
+  Notification,
+  ConfirmOptions,
+  DialogOptions,
+  LoggingConfig,
+  ToastPlacementConfig,
+  ToastPlacementInput,
+  ResolvedToastPlacement,
+  ToastPlacementTarget,
+} from './types';
 import { ConfirmDialog } from '../components/ConfirmDialog/ConfirmDialog';
 import { DialogComponent } from '../components/Dialog/Dialog';
 import { ToastContainer } from '../components/ToastContainer/ToastContainer';
@@ -22,6 +31,7 @@ export interface NotificationsContextValue {
     hide: (id: string) => void;
   };
   loggingConfig?: LoggingConfig;
+  toastPlacement: ResolvedToastPlacement;
 }
 
 const NotificationsContext = createContext<NotificationsContextValue | undefined>(undefined);
@@ -30,12 +40,54 @@ interface NotificationsProviderProps {
   children: ReactNode;
   loggingConfig?: LoggingConfig;
   defaultDuration?: number;
+  toastPlacement?: ToastPlacementConfig | ToastPlacementInput;
 }
+
+const DEFAULT_TOAST_PLACEMENT: ToastPlacementTarget = { position: 'top-right' };
+
+const isPlacementConfig = (
+  value?: ToastPlacementConfig | ToastPlacementInput
+): value is ToastPlacementConfig => {
+  return !!value && typeof value === 'object' && 'default' in value;
+};
+
+const normalizePlacementTarget = (input?: ToastPlacementInput): ToastPlacementTarget => {
+  if (!input) {
+    return DEFAULT_TOAST_PLACEMENT;
+  }
+  if (typeof input === 'string') {
+    return { position: input };
+  }
+  return {
+    position: input.position,
+    container: input.container,
+  };
+};
+
+const resolveToastPlacement = (
+  config?: ToastPlacementConfig | ToastPlacementInput,
+  width: number = typeof window !== 'undefined' ? window.innerWidth : Number.POSITIVE_INFINITY
+): ResolvedToastPlacement => {
+  if (isPlacementConfig(config)) {
+    const sortedRules = [...(config.responsive ?? [])].sort((a, b) => a.maxWidth - b.maxWidth);
+    const rule = sortedRules.find((r) => width <= r.maxWidth);
+    const target = normalizePlacementTarget(rule ? rule.target : config.default);
+    return { ...target, isInline: Boolean(target.container) };
+  }
+
+  const target = normalizePlacementTarget(config);
+  return { ...target, isInline: Boolean(target.container) };
+};
+
+const hasResponsivePlacement = (config?: ToastPlacementConfig | ToastPlacementInput) => {
+  return isPlacementConfig(config) && Array.isArray(config.responsive) && config.responsive.length > 0;
+};
 
 export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
   children,
   loggingConfig,
   defaultDuration = 5000,
+  toastPlacement,
 }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [confirmState, setConfirmState] = useState<{
@@ -113,6 +165,27 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
     });
   }, []);
 
+  const computePlacement = useCallback(() => resolveToastPlacement(toastPlacement), [toastPlacement]);
+
+  const [currentPlacement, setCurrentPlacement] = useState<ResolvedToastPlacement>(() => computePlacement());
+
+  useEffect(() => {
+    setCurrentPlacement(computePlacement());
+  }, [computePlacement]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !hasResponsivePlacement(toastPlacement)) {
+      return;
+    }
+    const handleResize = () => {
+      setCurrentPlacement(computePlacement());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [computePlacement, toastPlacement]);
+
   const value: NotificationsContextValue = {
     notifications,
     showNotification,
@@ -123,6 +196,7 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
       hide: hideDialog,
     },
     loggingConfig,
+    toastPlacement: currentPlacement,
   };
 
   // Set global context for notify API
@@ -136,10 +210,11 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
   return (
     <NotificationsContext.Provider value={value}>
       {children}
-      <ToastContainer 
-        notifications={notifications} 
+      <ToastContainer
+        notifications={notifications}
         onRemove={removeNotification}
         defaultDuration={defaultDuration}
+        placement={currentPlacement}
       />
       {confirmState && (
         <ConfirmDialog

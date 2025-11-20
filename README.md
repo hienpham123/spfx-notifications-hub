@@ -16,6 +16,7 @@ A powerful library for toast, snackbar, confirm popup, and dialog notifications 
 - ❌ **notify.error()** - Error notifications
 - ℹ️ **notify.info()** - Info notifications
 - 🌐 **Global provider** - No prop drilling needed
+- 📐 **Responsive placement** - Control toast position per breakpoint or inline containers
 - ⏱️ **Auto dismiss** - Automatically closes after specified duration with progress bar
 - 📊 **Server logging** - Optional server logging
 - 🎨 **Fluent-inspired UI** - Fluent look & feel with pure HTML/CSS/SVG (no Fluent UI dependency)
@@ -91,6 +92,63 @@ import 'spfx-notifications-hub/styles';
 // or
 import 'spfx-notifications-hub/dist/index.css';
 ```
+
+## 🎯 Toast placement & responsive rules
+
+You can control where toast notifications appear using the `toastPlacement` prop on `NotificationsProvider`.
+
+### Simple placement
+
+```tsx
+<NotificationsProvider toastPlacement="bottom-left">
+  <YourApp />
+</NotificationsProvider>
+```
+
+### Responsive placement
+
+```tsx
+<NotificationsProvider
+  toastPlacement={{
+    default: 'top-right',
+    responsive: [
+      { maxWidth: 1024, target: 'bottom-right' },
+      { maxWidth: 640, target: 'bottom-center' },
+    ],
+  }}
+>
+  <YourApp />
+</NotificationsProvider>
+```
+
+### Inline container (inside a card/panel)
+
+```tsx
+import React, { useRef } from 'react';
+import { NotificationsProvider } from 'spfx-notifications-hub';
+
+const cardRef = useRef<HTMLDivElement>(null);
+
+<NotificationsProvider
+  toastPlacement={{
+    default: {
+      position: 'top-right',
+      container: () => cardRef.current, // selector, element or function are supported
+    },
+  }}
+>
+  <div ref={cardRef} className="card">
+    {/* Toasts for this provider render inside this element */}
+  </div>
+</NotificationsProvider>
+```
+
+`container` accepts:
+- a **CSS selector string** (`'#toast-root'`)
+- an **HTMLElement** (`document.getElementById('toast-root')`)
+- a **function** returning the element (`() => cardRef.current`)
+
+If no container is provided, toasts stick to the viewport (default `top-right`). Responsive rules use `maxWidth` to match the current viewport width.
 
 ## 📖 Usage Examples
 
