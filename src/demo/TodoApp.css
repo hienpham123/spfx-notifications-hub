@@ -21,6 +21,109 @@
   margin-bottom: 24px;
 }
 
+.hh-demo-input {
+  flex: 1;
+  border: 1px solid #d1d1d1;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.hh-demo-input:focus {
+  border-color: #0078d4;
+  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+  outline: none;
+}
+
+.hh-demo-button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hh-demo-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hh-demo-button-primary {
+  background: #0078d4;
+  border-color: #0078d4;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 120, 212, 0.2);
+}
+
+.hh-demo-button-primary:hover:not(:disabled) {
+  background: #106ebe;
+  border-color: #106ebe;
+}
+
+.hh-demo-button-secondary {
+  background: #ffffff;
+  border-color: #d1d1d1;
+  color: #323130;
+}
+
+.hh-demo-button-secondary:hover:not(:disabled) {
+  border-color: #0078d4;
+  color: #0078d4;
+  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+}
+
+.hh-demo-icon-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #d1d1d1;
+  background: #fff;
+  color: #a19f9d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.hh-demo-icon-button:hover {
+  border-color: #0078d4;
+}
+
+.hh-demo-icon-button.is-complete {
+  border-color: #107c10;
+  background: #e7f4e4;
+  color: #107c10;
+}
+
+.hh-demo-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid currentColor;
+  position: relative;
+}
+
+.hh-demo-checkbox::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 2px;
+  background: transparent;
+  transform: scale(0.6);
+  transition: background 0.2s;
+}
+
+.hh-demo-icon-button.is-complete .hh-demo-checkbox::after {
+  background: currentColor;
+}
+
 .hh-todo-list {
   display: flex;
   flex-direction: column;
@@ -80,5 +183,127 @@
   padding: 16px;
   background-color: #f3f2f1;
   border-radius: 4px;
+}
+
+.hh-demo-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hh-placement-panel {
+  background: #ffffff;
+  border: 1px solid #e1dfdd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hh-placement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hh-placement-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: #605e5c;
+  margin-bottom: 4px;
+}
+
+.hh-placement-title {
+  margin: 0;
+  font-size: 22px;
+  color: #323130;
+}
+
+.hh-placement-preview {
+  border: 1px solid #0078d4;
+  background: #0078d4;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.hh-placement-preview:hover {
+  background: #106ebe;
+}
+
+.hh-placement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.hh-placement-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hh-placement-label {
+  font-weight: 600;
+  color: #323130;
+}
+
+.hh-placement-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hh-placement-chip {
+  border: 1px solid #e1dfdd;
+  border-radius: 999px;
+  padding: 6px 16px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.hh-placement-chip.is-active {
+  border-color: #0078d4;
+  color: #0078d4;
+  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.1);
+}
+
+.hh-placement-toggle {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: #605e5c;
+  line-height: 20px;
+}
+
+.hh-inline-target {
+  border: 1px dashed #c8c6c4;
+  border-radius: 8px;
+  background: #fdfdfc;
+  padding: 16px;
+  min-height: 120px;
+  position: relative;
+}
+
+.hh-inline-target.is-active {
+  border-style: solid;
+  border-color: #0078d4;
+  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+}
+
+.hh-inline-note {
+  font-size: 14px;
+  color: #605e5c;
+  margin-top: 8px;
 }
 
