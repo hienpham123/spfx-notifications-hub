@@ -47,11 +47,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/spfx-notifications-hub.git"
+    "url": "https://github.com/hienpham123/spfx-notifications-hub.git"
   },
-  "homepage": "https://github.com/your-username/spfx-notifications-hub#readme",
+  "homepage": "https://github.com/hienpham123/spfx-notifications-hub#readme",
   "bugs": {
-    "url": "https://github.com/your-username/spfx-notifications-hub/issues"
+    "url": "https://github.com/hienpham123/spfx-notifications-hub/issues"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
