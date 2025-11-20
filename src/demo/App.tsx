@@ -1,10 +1,7 @@
 import React from 'react';
-import { initializeIcons } from '@fluentui/react';
 import { NotificationsProvider } from '../notifications/context';
+import '../styles.css';
 import { TodoApp } from './TodoApp';
-
-// Initialize Fluent UI icons
-initializeIcons();
 
 export const App: React.FC = () => {
   return (

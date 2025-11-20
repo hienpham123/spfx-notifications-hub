@@ -1,7 +1,21 @@
 import React from 'react';
-import { PrimaryButton, DefaultButton } from '@fluentui/react';
 import { useDialog } from '../notifications/hooks';
 import { notify } from './notify-api';
+import './TodoApp.css';
+
+interface DemoButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary';
+}
+
+const DemoButton: React.FC<DemoButtonProps> = ({ variant = 'primary', className = '', children, ...rest }) => (
+  <button
+    type="button"
+    className={`hh-demo-button ${variant === 'primary' ? 'hh-demo-button-primary' : 'hh-demo-button-secondary'} ${className}`.trim()}
+    {...rest}
+  >
+    {children}
+  </button>
+);
 
 /**
  * Examples of using Dialog with different Fluent UI properties
@@ -68,12 +82,16 @@ export const DialogExamples: React.FC = () => {
       closeOnEscape: true,
       size: 'medium',
       footer: (
-        <DefaultButton onClick={() => {
-          dialog.hide(dialogId);
-          notify.info('Dialog closed by button');
-        }}>
+        <button
+          type="button"
+          className="hh-button hh-button-secondary"
+          onClick={() => {
+            dialog.hide(dialogId);
+            notify.info('Dialog closed by button');
+          }}
+        >
           Close
-        </DefaultButton>
+        </button>
       ),
     });
   };
@@ -109,14 +127,16 @@ export const DialogExamples: React.FC = () => {
       closeOnOutsideClick: true,
       footer: (
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-          <DefaultButton
+          <button
+            type="button"
+            className="hh-button hh-button-secondary"
             onClick={() => {
               dialog.hide(dialogId);
               notify.info('Dialog closed');
             }}
           >
             Close
-          </DefaultButton>
+          </button>
         </div>
       ),
     });
@@ -127,14 +147,14 @@ export const DialogExamples: React.FC = () => {
       <h2>Dialog Examples with Fluent UI Properties</h2>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-        <PrimaryButton onClick={handleBasicDialog}>Basic Dialog</PrimaryButton>
-        <PrimaryButton onClick={handleBackdropDialog}>Opaque Backdrop</PrimaryButton>
-        <PrimaryButton onClick={handleNonModalDialog}>Non-Modal Dialog</PrimaryButton>
-        <PrimaryButton onClick={handleAlertDialog}>Alert Dialog</PrimaryButton>
-        <PrimaryButton onClick={handleStyledDialog}>Styled Dialog</PrimaryButton>
-        <PrimaryButton onClick={handleBlockingDialog}>Blocking Dialog</PrimaryButton>
-        <PrimaryButton onClick={handleSmallDialog}>Small Dialog</PrimaryButton>
-        <PrimaryButton onClick={handleFullFeaturedDialog}>Full Featured</PrimaryButton>
+        <DemoButton onClick={handleBasicDialog}>Basic Dialog</DemoButton>
+        <DemoButton onClick={handleBackdropDialog}>Opaque Backdrop</DemoButton>
+        <DemoButton onClick={handleNonModalDialog}>Non-Modal Dialog</DemoButton>
+        <DemoButton onClick={handleAlertDialog}>Alert Dialog</DemoButton>
+        <DemoButton onClick={handleStyledDialog}>Styled Dialog</DemoButton>
+        <DemoButton onClick={handleBlockingDialog}>Blocking Dialog</DemoButton>
+        <DemoButton onClick={handleSmallDialog}>Small Dialog</DemoButton>
+        <DemoButton onClick={handleFullFeaturedDialog}>Full Featured</DemoButton>
       </div>
     </div>
   );

@@ -1,22 +1,196 @@
+.hh-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.hh-dialog-overlay-transparent {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hh-dialog-overlay-none {
+  background: transparent;
+}
+
+.hh-dialog-overlay-none {
+  pointer-events: none;
+}
+
+.hh-dialog-overlay-none .hh-dialog {
+  pointer-events: auto;
+}
+
+.hh-dialog {
+  background: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
 .hh-dialog-small {
-  width: 400px;
-  max-width: 90vw;
+  max-width: 420px;
+}
+
+.hh-dialog-confirm {
+  max-width: 360px;
 }
 
 .hh-dialog-medium {
-  width: 600px;
-  max-width: 90vw;
+  max-width: 640px;
 }
 
 .hh-dialog-large {
-  width: 800px;
-  max-width: 90vw;
+  max-width: 840px;
 }
 
 .hh-dialog-fullscreen {
-  width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0;
+}
+
+.hh-dialog-alert .hh-dialog-header {
+  border-bottom-color: rgba(209, 52, 56, 0.2);
+}
+
+.hh-dialog-header {
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #edebe9;
+}
+
+.hh-dialog-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #323130;
+}
+
+.hh-dialog-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 4px;
+  color: #605e5c;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hh-dialog-close:hover {
+  background: #f3f2f1;
+  color: #323130;
+}
+
+.hh-dialog-body {
+  padding: 24px;
+  color: #323130;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.hh-dialog-body p {
+  margin: 0 0 12px;
+  color: #605e5c;
+}
+
+.hh-dialog-body p:last-child {
+  margin-bottom: 0;
+}
+
+.hh-dialog-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #edebe9;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hh-dialog-footer .hh-button + .hh-button {
+  margin-left: 4px;
+}
+
+.hh-button {
+  min-width: 86px;
+  padding: 6px 14px;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.hh-button-primary {
+  background: #0078d4;
+  color: #ffffff;
+  border-color: #005a9e;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.hh-button-primary:hover {
+  background: #106ebe;
+}
+
+.hh-button-secondary {
+  background: #ffffff;
+  color: #323130;
+  border-color: #8a8886;
+}
+
+.hh-button-secondary:hover {
+  background: #f3f2f1;
+}
+
+.hh-button-outline {
+  background: transparent;
+  color: #0078d4;
+  border-color: #0078d4;
+}
+
+.hh-button-outline:hover {
+  background: rgba(0, 120, 212, 0.08);
+}
+
+.hh-button-subtle {
+  background: transparent;
+  color: #323130;
+  border-color: transparent;
+}
+
+.hh-button-subtle:hover {
+  background: #f3f2f1;
+}
+
+.hh-button-transparent {
+  background: transparent;
+  color: #605e5c;
+  border-color: transparent;
+}
+
+.hh-button-transparent:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 

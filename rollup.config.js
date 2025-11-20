@@ -38,7 +38,8 @@ export default [
         jsx: "react",
       }),
       postcss({
-        extract: 'index.css',
+        inject: false, // Don't inject CSS into JS
+        extract: false, // We'll extract in a separate build step
         minimize: true,
       }),
       terser(),
@@ -47,6 +48,17 @@ export default [
       if (warning.code === "THIS_IS_UNDEFINED") return;
       warn(warning);
     },
+  },
+  // Separate build step for CSS extraction
+  {
+    input: "src/styles.css",
+    output: [{ file: "dist/css-bundle.js", format: "esm" }],
+    plugins: [
+      postcss({
+        extract: 'index.css',
+        minimize: true,
+      }),
+    ],
   },
   {
     input: "src/index.ts",

@@ -1,11 +1,7 @@
-import React from 'react';
-import {
-  Dialog,
-  DialogType,
-  DialogFooter,
-} from '@fluentui/react';
+import React, { useEffect } from 'react';
 import { DialogOptions } from '../types';
 import './Dialog.css';
+import { SvgIcon } from './SvgIcon';
 
 interface DialogProps {
   isOpen: boolean;
@@ -14,74 +10,103 @@ interface DialogProps {
   dialogId?: string;
 }
 
-const sizeMap = {
-  small: 400,
-  medium: 600,
-  large: 800,
-  fullscreen: undefined, // Will use maxWidth: '100vw'
+const sizeClassMap: Record<NonNullable<DialogOptions['size']>, string> = {
+  small: 'hh-dialog-small',
+  medium: 'hh-dialog-medium',
+  large: 'hh-dialog-large',
+  fullscreen: 'hh-dialog-fullscreen',
 };
 
 export const DialogComponent: React.FC<DialogProps> = ({ isOpen, options, onDismiss }) => {
-  const size = options.size || 'medium';
-  // Note: closeOnEscape is not directly supported in Fluent UI v8 Dialog
-  // Fluent UI v8 Dialog always allows Escape key to close
-  const closeOnOutsideClick = options.closeOnOutsideClick !== false; // Default true
-  
-  // Map modalType to DialogType
-  let dialogType = DialogType.normal;
-  if (options.modalType === 'alert') {
-    dialogType = DialogType.largeHeader;
-  } else if (options.modalType === 'non-modal') {
-    // Non-modal is handled by isBlocking: false
-    dialogType = DialogType.normal;
+  const {
+    title,
+    content,
+    footer,
+    size = 'medium',
+    backdrop = 'opaque',
+    modalType = 'modal',
+    closeOnEscape = true,
+    closeOnOutsideClick = true,
+    className,
+    style,
+  } = options;
+
+  useEffect(() => {
+    if (!isOpen || !closeOnEscape) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onDismiss();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, closeOnEscape, onDismiss]);
+
+  if (!isOpen) {
+    return null;
   }
-  
-  const dialogContentProps = {
-    type: dialogType,
-    title: options.title,
-    showCloseButton: true,
-  };
 
-  const modalProps = {
-    isBlocking: !closeOnOutsideClick, // Block outside clicks if closeOnOutsideClick is false
-    isDarkOverlay: options.backdrop === 'opaque',
-    styles: {
-      main: {
-        maxWidth: size === 'fullscreen' ? '100vw' : `${sizeMap[size]}px`,
-        width: size === 'fullscreen' ? '100vw' : undefined,
-        height: size === 'fullscreen' ? '100vh' : undefined,
-      },
-    },
-  };
+  const overlayClasses = [
+    'hh-dialog-overlay',
+    backdrop === 'transparent' ? 'hh-dialog-overlay-transparent' : '',
+    backdrop === 'none' ? 'hh-dialog-overlay-none' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  const handleDismiss = () => {
-    // This is called when dialog is dismissed
-    // Fluent UI v8 handles isBlocking for outside clicks automatically
-    // For Escape key, we need to check closeOnEscape
-    // Note: Fluent UI v8 Dialog doesn't have a direct way to prevent Escape key,
-    // so we'll allow it and document that closeOnEscape is handled by isBlocking
-    onDismiss();
-  };
+  const dialogClasses = [
+    'hh-dialog',
+    sizeClassMap[size],
+    modalType === 'alert' ? 'hh-dialog-alert' : '',
+    className || '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  const minWidth = size === 'fullscreen' ? undefined : sizeMap[size];
+  const handleOverlayClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    if (!closeOnOutsideClick) {
+      event.stopPropagation();
+      return;
+    }
+
+    if (event.target === event.currentTarget) {
+      onDismiss();
+    }
+  };
 
   return (
-    <Dialog
-      hidden={!isOpen}
-      onDismiss={handleDismiss}
-      dialogContentProps={dialogContentProps}
-      modalProps={modalProps}
-      minWidth={minWidth}
-      className={options.className}
+    <div
+      className={overlayClasses}
+      role="presentation"
+      onClick={handleOverlayClick}
+      aria-hidden={modalType === 'non-modal'}
     >
-      <div style={{ padding: '16px 0' }}>
-        {options.content}
+      <div
+        className={dialogClasses}
+        role="dialog"
+        aria-modal={modalType !== 'non-modal'}
+        aria-labelledby={title ? 'hh-dialog-title' : undefined}
+        style={style}
+      >
+        <div className="hh-dialog-header">
+          {title && (
+            <div id="hh-dialog-title" className="hh-dialog-title">
+              {title}
+            </div>
+          )}
+          <button className="hh-dialog-close" onClick={onDismiss} aria-label="Close dialog">
+            <SvgIcon name="close" size={16} />
+          </button>
+        </div>
+        <div className="hh-dialog-body">{content}</div>
+        {footer && <div className="hh-dialog-footer">{footer}</div>}
       </div>
-      {options.footer && (
-        <DialogFooter>
-          {options.footer}
-        </DialogFooter>
-      )}
-    </Dialog>
+    </div>
   );
 };

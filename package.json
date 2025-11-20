@@ -1,6 +1,6 @@
 {
   "name": "spfx-notifications-hub",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A powerful library for toast, snackbar, confirm popup, and dialog notifications following Fluent UI standards for SPFx and React applications. Works seamlessly with both Functional Components and Class Components.",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -18,10 +18,12 @@
       "require": "./dist/cjs/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./styles": "./dist/index.css"
+    "./styles": "./dist/index.css",
+    "./dist/index.css": "./dist/index.css",
+    "./index.css": "./dist/index.css"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && rm -f dist/css-bundle.js",
     "dev": "vite",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
@@ -69,10 +71,7 @@
     "node": ">=12.0.0",
     "npm": ">=6.0.0"
   },
-  "dependencies": {
-    "@fluentui/react": "^8.118.0",
-    "@fluentui/react-icons": "^2.0.258"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.8",
     "@rollup/plugin-node-resolve": "^15.3.1",

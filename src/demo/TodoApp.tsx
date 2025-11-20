@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { PrimaryButton, DefaultButton, TextField, IconButton } from '@fluentui/react';
 import { useNotify, useConfirm, useDialog } from '../notifications/hooks';
 import { notify, confirm } from './notify-api';
 import { MyComponentHOC, MyComponentWithRenderProps, MyComponentWithGlobalAPI } from './ClassComponentExample';
@@ -142,14 +141,16 @@ export const TodoApp: React.FC = () => {
             size: 'medium',
             footer: (
                 <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                    <DefaultButton
+                    <button
+                        type="button"
+                        className="hh-button hh-button-secondary"
                         onClick={() => {
                             dialogHook.hide(dialogId);
                             notify.info('Dialog closed');
                         }}
                     >
                         Close
-                    </DefaultButton>
+                    </button>
                 </div>
             ),
         });
@@ -163,20 +164,21 @@ export const TodoApp: React.FC = () => {
             </div>
 
             <div className="hh-todo-form">
-                <TextField
+                <input
+                    type="text"
+                    className="hh-demo-input"
                     placeholder="Enter new task..."
                     value={inputValue}
-                    onChange={(_e, newValue) => setInputValue(newValue || '')}
-                    onKeyDown={(e: React.KeyboardEvent) => {
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             handleAdd();
                         }
                     }}
-                    styles={{ root: { flex: 1 } }}
                 />
-                <PrimaryButton onClick={handleAdd} iconProps={{ iconName: 'Add' }}>
+                <button type="button" className="hh-demo-button hh-demo-button-primary" onClick={handleAdd}>
                     Add
-                </PrimaryButton>
+                </button>
             </div>
 
             {todos.length > 0 && (
@@ -185,33 +187,39 @@ export const TodoApp: React.FC = () => {
                         {todos.map((todo) => (
                             <div key={todo.id} className="hh-todo-item">
                                 <div className="hh-todo-content">
-                                    <IconButton
-                                        iconProps={{ iconName: todo.completed ? 'CheckMark' : 'CircleRing' }}
+                                    <button
+                                        type="button"
+                                        className={`hh-demo-icon-button ${todo.completed ? 'is-complete' : ''}`}
                                         onClick={() => handleToggle(todo.id)}
-                                        styles={{ root: { color: todo.completed ? 'green' : undefined } }}
                                         title={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
-                                    />
+                                        aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
+                                    >
+                                        <span className="hh-demo-checkbox" aria-hidden="true" />
+                                    </button>
                                     <span className={`hh-todo-text ${todo.completed ? 'hh-todo-text-completed' : ''}`}>
                                         {todo.text}
                                     </span>
                                 </div>
-                                <DefaultButton
-                                    iconProps={{ iconName: 'Delete' }}
+                                <button
+                                    type="button"
+                                    className="hh-demo-button hh-demo-button-secondary"
                                     onClick={() => handleDelete(todo.id)}
                                 >
                                     Delete
-                                </DefaultButton>
+                                </button>
                             </div>
                         ))}
                     </div>
 
                     <div className="hh-todo-actions">
-                        <DefaultButton
+                        <button
+                            type="button"
+                            className="hh-demo-button hh-demo-button-secondary"
                             onClick={handleClearCompleted}
                             disabled={todos.filter((t) => t.completed).length === 0}
                         >
                             Clear Completed Tasks
-                        </DefaultButton>
+                        </button>
                     </div>
                 </>
             )}
@@ -225,21 +233,21 @@ export const TodoApp: React.FC = () => {
             <div className="hh-demo-section">
                 <h2 className="hh-demo-section-title">🎯 Demo Notifications Hub</h2>
                 <div className="hh-demo-buttons">
-                    <PrimaryButton onClick={handleDemoSuccess}>
+                    <button type="button" className="hh-demo-button hh-demo-button-primary" onClick={handleDemoSuccess}>
                         Success Toast
-                    </PrimaryButton>
-                    <PrimaryButton onClick={handleDemoWarning}>
+                    </button>
+                    <button type="button" className="hh-demo-button hh-demo-button-primary" onClick={handleDemoWarning}>
                         Warning Toast
-                    </PrimaryButton>
-                    <PrimaryButton onClick={handleDemoError}>
+                    </button>
+                    <button type="button" className="hh-demo-button hh-demo-button-primary" onClick={handleDemoError}>
                         Error Toast
-                    </PrimaryButton>
-                    <PrimaryButton onClick={handleDemoConfirm}>
+                    </button>
+                    <button type="button" className="hh-demo-button hh-demo-button-primary" onClick={handleDemoConfirm}>
                         Confirm Dialog
-                    </PrimaryButton>
-                    <PrimaryButton onClick={handleDemoDialog}>
+                    </button>
+                    <button type="button" className="hh-demo-button hh-demo-button-primary" onClick={handleDemoDialog}>
                         Custom Dialog
-                    </PrimaryButton>
+                    </button>
                 </div>
             </div>
 

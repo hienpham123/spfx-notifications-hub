@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Notification } from '../types';
-import { Icon } from '@fluentui/react';
 import './Toast.css';
+import { SvgIcon } from './SvgIcon';
 
 interface ToastProps {
   notification: Notification;
   onDismiss: () => void;
   defaultDuration?: number;
 }
-
-const iconMap = {
-  success: 'Completed',
-  warning: 'Warning',
-  error: 'ErrorBadge',
-  info: 'Info',
-};
 
 const colorMap = {
   success: '#107c10',
@@ -24,7 +17,6 @@ const colorMap = {
 };
 
 export const Toast: React.FC<ToastProps> = ({ notification, onDismiss, defaultDuration = 5000 }) => {
-  const iconName = iconMap[notification.type];
   const color = colorMap[notification.type];
   const duration = notification.duration ?? defaultDuration;
   const [isPaused, setIsPaused] = useState(false);
@@ -55,9 +47,9 @@ export const Toast: React.FC<ToastProps> = ({ notification, onDismiss, defaultDu
       onMouseLeave={handleMouseLeave}
     >
       <div className="hh-notifications-toast-content">
-        {iconName && (
+        {notification.type && (
           <div className="hh-notifications-toast-icon" style={{ color }}>
-            <Icon iconName={iconName} />
+            <SvgIcon name={notification.type} />
           </div>
         )}
         <div className="hh-notifications-toast-body">
@@ -84,7 +76,7 @@ export const Toast: React.FC<ToastProps> = ({ notification, onDismiss, defaultDu
           className="hh-notifications-toast-dismiss"
           aria-label="Dismiss"
         >
-          <Icon iconName="Cancel" />
+          <SvgIcon name="close" size={16} />
         </button>
       </div>
       {duration > 0 && (
