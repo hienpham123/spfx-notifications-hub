@@ -12,7 +12,7 @@ export const setGlobalNotificationsContext = (context: NotificationsContextValue
 };
 export const getGlobalNotificationsContext = () => globalNotificationsContext;
 
-interface NotificationsContextValue {
+export interface NotificationsContextValue {
   notifications: Notification[];
   showNotification: (notification: Omit<Notification, 'id'>) => void;
   removeNotification: (id: string) => void;

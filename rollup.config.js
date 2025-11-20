@@ -34,6 +34,8 @@ export default [
         tsconfig: "./tsconfig.json",
         declaration: false,
         declarationMap: false,
+        target: "ES2015",
+        jsx: "react",
       }),
       postcss({
         extract: 'index.css',

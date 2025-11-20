@@ -2,6 +2,12 @@
 
 A powerful library for toast, snackbar, confirm popup, and dialog notifications following Fluent UI standards for SPFx and React applications. Works seamlessly with both **Functional Components** and **Class Components**.
 
+## ✅ Compatibility
+
+- **React**: 16.8+ to 19.x (supports all modern React versions)
+- **Node.js**: 12.0+ (compatible with older Node versions)
+- **TypeScript**: 4.0+ (optional, for type definitions)
+
 ## ✨ Features
 
 - 🎯 **Promise-based confirm()** - Confirmation with async/await

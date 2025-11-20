@@ -9,8 +9,8 @@ export async function logNotification(
   const shouldLog =
     config.logLevel === 'all' ||
     (config.logLevel === 'error' && notification.type === 'error') ||
-    (config.logLevel === 'warning' && ['error', 'warning'].includes(notification.type)) ||
-    (config.logLevel === 'info' && ['error', 'warning', 'info'].includes(notification.type));
+    (config.logLevel === 'warning' && ['error', 'warning'].indexOf(notification.type) !== -1) ||
+    (config.logLevel === 'info' && ['error', 'warning', 'info'].indexOf(notification.type) !== -1);
 
   if (!shouldLog) return;
 

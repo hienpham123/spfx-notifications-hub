@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { NotificationsContextValue, useNotifications } from './context';
+import { useNotifications } from './context';
 
 /**
  * HOC (Higher Order Component) to inject notifications into class components
