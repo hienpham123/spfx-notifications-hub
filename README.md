@@ -18,8 +18,25 @@ A powerful library for toast, snackbar, confirm popup, and dialog notifications 
 - 🌐 **Global provider** - No prop drilling needed
 - ⏱️ **Auto dismiss** - Automatically closes after specified duration with progress bar
 - 📊 **Server logging** - Optional server logging
-- 🎨 **Fluent UI v8** - Beautiful UI following Microsoft Fluent standards
+- 🎨 **Fluent-inspired UI** - Fluent look & feel with pure HTML/CSS/SVG (no Fluent UI dependency)
 - 📦 **Class Component Support** - Works with both functional and class components
+
+## 🗂️ Project structure
+
+```
+src/
+├─ core/                    # Provider, hooks, HOC, shared types
+│  ├─ NotificationsProvider.tsx
+│  ├─ hooks.ts / hoc.tsx
+│  └─ utils/logging.ts
+├─ components/              # UI building blocks (toast, dialog, confirm)
+│  ├─ ConfirmDialog/
+│  ├─ Dialog/
+│  ├─ Toast/
+│  ├─ ToastContainer/
+│  └─ shared/SvgIcon.tsx
+└─ styles.css               # Aggregated CSS entry (import this from apps)
+```
 
 ## 📦 Installation
 
@@ -36,22 +53,17 @@ Wrap your app with `NotificationsProvider`:
 ```tsx
 import React from 'react';
 import { NotificationsProvider } from 'spfx-notifications-hub';
-import { initializeIcons } from '@fluentui/react';
+import 'spfx-notifications-hub/styles';
 
-// Initialize Fluent UI icons (Required)
-initializeIcons();
-
-// For Functional Component
-function App() {
+// Functional root
+export function App() {
   return (
     <NotificationsProvider
       defaultDuration={5000}
       loggingConfig={{
         enabled: true,
         logLevel: 'all',
-        onLog: async (notification) => {
-          console.log('Notification:', notification);
-        },
+        onLog: (notification) => console.log('[Notification]', notification),
       }}
     >
       <YourApp />
@@ -59,11 +71,11 @@ function App() {
   );
 }
 
-// For Class Component
-class App extends React.Component {
+// Class root
+export class AppClass extends React.Component {
   render() {
     return (
-      <NotificationsProvider defaultDuration={5000}>
+      <NotificationsProvider defaultDuration={4000}>
         <YourApp />
       </NotificationsProvider>
     );
@@ -89,7 +101,6 @@ import 'spfx-notifications-hub/dist/index.css';
 ```tsx
 import React from 'react';
 import { useNotify, useConfirm, useDialog } from 'spfx-notifications-hub';
-import { PrimaryButton } from '@fluentui/react';
 
 function MyComponent() {
   const notify = useNotify();
@@ -117,7 +128,7 @@ function MyComponent() {
   };
 
   const handleShowDialog = () => {
-    const dialogId = dialog.show({
+    dialog.show({
       title: 'My Dialog',
       content: <div>Dialog content here</div>,
       size: 'medium',
@@ -125,10 +136,10 @@ function MyComponent() {
   };
 
   return (
-    <div>
-      <PrimaryButton onClick={handleSuccess}>Success</PrimaryButton>
-      <PrimaryButton onClick={handleDelete}>Delete</PrimaryButton>
-      <PrimaryButton onClick={handleShowDialog}>Show Dialog</PrimaryButton>
+    <div className="stack gap-8">
+      <button onClick={handleSuccess}>Success toast</button>
+      <button onClick={handleDelete}>Confirm delete</button>
+      <button onClick={handleShowDialog}>Show dialog</button>
     </div>
   );
 }
@@ -139,7 +150,6 @@ function MyComponent() {
 ```tsx
 import React from 'react';
 import { notify, confirm, dialog } from 'spfx-notifications-hub';
-import { PrimaryButton } from '@fluentui/react';
 
 function MyComponent() {
   const handleClick = () => {
@@ -156,9 +166,19 @@ function MyComponent() {
   };
 
   return (
-    <div>
-      <PrimaryButton onClick={handleClick}>Click</PrimaryButton>
-      <PrimaryButton onClick={handleConfirm}>Confirm</PrimaryButton>
+    <div className="stack gap-8">
+      <button onClick={handleClick}>Show Toast</button>
+      <button onClick={handleConfirm}>Confirm Action</button>
+      <button
+        onClick={() =>
+          dialog.show({
+            title: 'Dialog example',
+            content: <p>This dialog is opened via global API</p>,
+          })
+        }
+      >
+        Show Dialog
+      </button>
     </div>
   );
 }
@@ -173,7 +193,6 @@ function MyComponent() {
 ```tsx
 import React from 'react';
 import { notify, confirm, dialog } from 'spfx-notifications-hub';
-import { PrimaryButton, DefaultButton } from '@fluentui/react';
 
 class MyComponent extends React.Component {
   private dialogId: string | null = null;
@@ -223,7 +242,7 @@ class MyComponent extends React.Component {
       size: 'medium',
       footer: (
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-          <DefaultButton
+          <button
             onClick={() => {
               if (this.dialogId) {
                 dialog.hide(this.dialogId);
@@ -233,7 +252,7 @@ class MyComponent extends React.Component {
             }}
           >
             Close
-          </DefaultButton>
+          </button>
         </div>
       ),
     });
@@ -241,12 +260,12 @@ class MyComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <PrimaryButton onClick={this.handleSuccess}>Success</PrimaryButton>
-        <PrimaryButton onClick={this.handleWarning}>Warning</PrimaryButton>
-        <PrimaryButton onClick={this.handleError}>Error</PrimaryButton>
-        <PrimaryButton onClick={this.handleConfirm}>Confirm</PrimaryButton>
-        <PrimaryButton onClick={this.handleShowDialog}>Show Dialog</PrimaryButton>
+      <div className="stack gap-8">
+        <button onClick={this.handleSuccess}>Success</button>
+        <button onClick={this.handleWarning}>Warning</button>
+        <button onClick={this.handleError}>Error</button>
+        <button onClick={this.handleConfirm}>Confirm</button>
+        <button onClick={this.handleShowDialog}>Show Dialog</button>
       </div>
     );
   }
@@ -262,7 +281,6 @@ export default MyComponent;
 ```tsx
 import React from 'react';
 import { withNotifications, WithNotificationsProps } from 'spfx-notifications-hub';
-import { PrimaryButton } from '@fluentui/react';
 
 interface MyComponentProps {
   title?: string;
@@ -286,8 +304,8 @@ class MyComponent extends React.Component<MyComponentProps & WithNotificationsPr
     return (
       <div>
         <h1>{this.props.title}</h1>
-        <PrimaryButton onClick={this.handleSuccess}>Success</PrimaryButton>
-        <PrimaryButton onClick={this.handleDialog}>Show Dialog</PrimaryButton>
+        <button onClick={this.handleSuccess}>Success</button>
+        <button onClick={this.handleDialog}>Show Dialog</button>
       </div>
     );
   }
@@ -301,25 +319,24 @@ export default withNotifications(MyComponent);
 ```tsx
 import React from 'react';
 import { NotificationsConsumer } from 'spfx-notifications-hub';
-import { PrimaryButton } from '@fluentui/react';
 
 class MyComponent extends React.Component {
   render() {
     return (
       <NotificationsConsumer>
         {({ notify, confirm, dialog }) => (
-          <div>
-            <PrimaryButton onClick={() => notify.success('Hello!')}>
+          <div className="stack gap-8">
+            <button onClick={() => notify.success('Hello!')}>
               Success
-            </PrimaryButton>
-            <PrimaryButton
+            </button>
+            <button
               onClick={async () => {
                 const result = await confirm({ message: 'Are you sure?' });
                 if (result) notify.success('Confirmed!');
               }}
             >
               Confirm
-            </PrimaryButton>
+            </button>
           </div>
         )}
       </NotificationsConsumer>

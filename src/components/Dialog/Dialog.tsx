@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { DialogOptions } from '../types';
+import { DialogOptions } from '../../core/types';
 import './Dialog.css';
-import { SvgIcon } from './SvgIcon';
+import { SvgIcon } from '../shared/SvgIcon';
 
 interface DialogProps {
   isOpen: boolean;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDialog } from '../notifications/hooks';
+import { useDialog } from '../core/hooks';
 import { notify } from './notify-api';
 import './TodoApp.css';
 

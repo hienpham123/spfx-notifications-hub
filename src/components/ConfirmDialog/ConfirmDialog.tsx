@@ -1,7 +1,7 @@
 import React from 'react';
-import { ConfirmOptions } from '../types';
-import './Dialog.css';
-import { SvgIcon } from './SvgIcon';
+import { ConfirmOptions } from '../../core/types';
+import '../Dialog/Dialog.css';
+import { SvgIcon } from '../shared/SvgIcon';
 
 interface ConfirmDialogProps {
   isOpen: boolean;

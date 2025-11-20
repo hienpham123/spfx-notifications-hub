@@ -1,6 +1,6 @@
 import React from 'react';
 import { PrimaryButton } from '@fluentui/react';
-import { withNotifications, WithNotificationsProps, NotificationsConsumer } from '../notifications/hoc';
+import { withNotifications, WithNotificationsProps, NotificationsConsumer } from '../core/hoc';
 import { notify, confirm, dialog } from './notify-api';
 
 // Example 1: Using HOC (Higher Order Component)

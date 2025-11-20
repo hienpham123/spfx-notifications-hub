@@ -1,6 +1,6 @@
 import React from 'react';
-import { Notification } from '../types';
-import { Toast } from './Toast';
+import { Notification } from '../../core/types';
+import { Toast } from '../Toast/Toast';
 import './ToastContainer.css';
 
 interface ToastContainerProps {

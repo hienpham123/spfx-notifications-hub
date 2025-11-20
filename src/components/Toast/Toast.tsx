@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Notification } from '../types';
+import { Notification } from '../../core/types';
 import './Toast.css';
-import { SvgIcon } from './SvgIcon';
+import { SvgIcon } from '../shared/SvgIcon';
 
 interface ToastProps {
   notification: Notification;

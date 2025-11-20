@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
 import { Notification, ConfirmOptions, DialogOptions, LoggingConfig } from './types';
-import { ConfirmDialog } from './components/ConfirmDialog';
-import { DialogComponent } from './components/Dialog';
-import { ToastContainer } from './components/ToastContainer';
+import { ConfirmDialog } from '../components/ConfirmDialog/ConfirmDialog';
+import { DialogComponent } from '../components/Dialog/Dialog';
+import { ToastContainer } from '../components/ToastContainer/ToastContainer';
 import { logNotification } from './utils/logging';
 
 // Global context setter (to avoid circular dependency)

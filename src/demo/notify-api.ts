@@ -1,6 +1,6 @@
 // Demo API - exports notify and confirm for demo app
-import { getGlobalNotificationsContext } from '../notifications/context';
-import { ConfirmOptions } from '../notifications/types';
+import { getGlobalNotificationsContext } from '../core/NotificationsProvider';
+import { ConfirmOptions, DialogOptions } from '../core/types';
 
 export const notify = {
   success: (message: string, options?: { title?: string; duration?: number; action?: { label: string; onClick: () => void } }) => {
@@ -62,9 +62,6 @@ export const confirm = (options: ConfirmOptions): Promise<boolean> => {
     return Promise.resolve(false);
   }
 };
-
-// Dialog API for demo
-import { DialogOptions } from '../notifications/types';
 
 export const dialog = {
   show: (options: DialogOptions): string => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotify, useConfirm, useDialog } from '../notifications/hooks';
+import { useNotify, useConfirm, useDialog } from '../core/hooks';
 import { notify, confirm } from './notify-api';
 import { MyComponentHOC, MyComponentWithRenderProps, MyComponentWithGlobalAPI } from './ClassComponentExample';
 import './TodoApp.css';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NotificationsProvider } from '../notifications/context';
+import { NotificationsProvider } from '../core/NotificationsProvider';
 import '../styles.css';
 import { TodoApp } from './TodoApp';
 

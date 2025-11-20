@@ -15,10 +15,7 @@ Wrap toàn bộ app với `NotificationsProvider` ở component gốc nhất:
 ```tsx
 import React from 'react';
 import { NotificationsProvider } from 'spfx-notifications-hub';
-import { initializeIcons } from '@fluentui/react';
-
-// Initialize Fluent UI icons (bắt buộc)
-initializeIcons();
+import 'spfx-notifications-hub/styles';
 
 class App extends React.Component {
   render() {
@@ -53,7 +50,6 @@ export default App;
 ```tsx
 import React from 'react';
 import { notify, confirm } from 'spfx-notifications-hub';
-import { PrimaryButton } from '@fluentui/react';
 
 class MyComponent extends React.Component {
   handleSuccess = () => {
@@ -98,12 +94,12 @@ class MyComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <PrimaryButton onClick={this.handleSuccess}>Success</PrimaryButton>
-        <PrimaryButton onClick={this.handleWarning}>Warning</PrimaryButton>
-        <PrimaryButton onClick={this.handleError}>Error</PrimaryButton>
-        <PrimaryButton onClick={this.handleInfo}>Info</PrimaryButton>
-        <PrimaryButton onClick={this.handleConfirm}>Confirm</PrimaryButton>
+      <div className="stack gap-8">
+        <button onClick={this.handleSuccess}>Success</button>
+        <button onClick={this.handleWarning}>Warning</button>
+        <button onClick={this.handleError}>Error</button>
+        <button onClick={this.handleInfo}>Info</button>
+        <button onClick={this.handleConfirm}>Confirm</button>
       </div>
     );
   }

@@ -1,17 +1,17 @@
-export { NotificationsProvider, useNotifications, setGlobalNotificationsContext } from './notifications/context';
-export { useNotify, useConfirm, useDialog } from './notifications/hooks';
-export { withNotifications, NotificationsConsumer } from './notifications/hoc';
-export type { WithNotificationsProps } from './notifications/hoc';
+export { NotificationsProvider, useNotifications, setGlobalNotificationsContext } from './core/NotificationsProvider';
+export { useNotify, useConfirm, useDialog } from './core/hooks';
+export { withNotifications, NotificationsConsumer } from './core/hoc';
+export type { WithNotificationsProps } from './core/hoc';
 export type {
   Notification,
   NotificationType,
   ConfirmOptions,
   DialogOptions,
   LoggingConfig,
-} from './notifications/types';
+} from './core/types';
 
-import { getGlobalNotificationsContext } from './notifications/context';
-import { ConfirmOptions } from './notifications/types';
+import { getGlobalNotificationsContext } from './core/NotificationsProvider';
+import { ConfirmOptions } from './core/types';
 
 // Global API for use outside React components
 export const notify = {
@@ -76,7 +76,7 @@ export const confirm = (options: ConfirmOptions): Promise<boolean> => {
 };
 
 // Global Dialog API for use outside React components
-import { DialogOptions } from './notifications/types';
+import { DialogOptions } from './core/types';
 
 export const dialog = {
   show: (options: DialogOptions): string => {

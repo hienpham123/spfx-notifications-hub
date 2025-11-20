@@ -1,4 +1,4 @@
-import { useNotifications } from './context';
+import { useNotifications } from './NotificationsProvider';
 
 export const useNotify = () => {
   const { showNotification } = useNotifications();
